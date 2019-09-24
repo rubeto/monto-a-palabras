@@ -9,7 +9,7 @@
 # Acepta string o integer como parametro de entrada.
 ################################################################
 #
-# Para probar, ejemplo: 
+# Para probar, ejemplo:
 # $ python conversor.py 12901.27
 # $ Son pesos: doce mil novecientos uno con 27/100
 #
@@ -26,7 +26,8 @@
 ################################################################
 
 #import sys
-import sys, re
+import sys
+import re
 from decimal import *
 
 unidades = (
@@ -73,7 +74,7 @@ decenas = (
 )
 
 centenas = (
-	'cien ',
+    'cien ',
     'ciento ',
     'doscientos ',
     'trescientos ',
@@ -85,6 +86,7 @@ centenas = (
     'novecientos ',
 )
 
+
 def traverse(n):
     n = long(n)
 
@@ -95,44 +97,48 @@ def traverse(n):
         return decenas[q-3] + ("y " + traverse(r) if r else "")
     elif n <= 999:
         q, r = divmod(n, 100)
-        return (centenas[q-1] if (q==1 and r==0) else centenas[q]) + (traverse(r) if r else "")
+        return (centenas[q-1] if (q == 1 and r == 0) else centenas[q]) + (traverse(r) if r else "")
     elif n <= 999999:
         q, r = divmod(n, 1000)
-        return (traverse(q) if q>1 else "") + "mil " + (traverse(r) if r else "")
+        return (traverse(q) if q > 1 else "") + "mil " + (traverse(r) if r else "")
     elif n <= 999999999999:
         q, r = divmod(n, 1000000)
-        return traverse(q) + ("millón " if q==1 else "millones ") + (traverse(r) if r else "")
+        return traverse(q) + ("millón " if q == 1 else "millones ") + (traverse(r) if r else "")
     return '??? '
 
+
 def ent2txt(n):
-#    return traverse(long(n))
+    #    return traverse(long(n))
     return re.sub('(ú|u)n $', 'uno ', traverse(long(n)), re.UNICODE)
 
-def dec2txt(n):
-	n = long((n-long(n))*100)
-	return ('con '+str(n)+'/100' if n else '')
 
-#def moneda(n):
+def dec2txt(n):
+    n = long((n-long(n))*100)
+    return ('con '+str(n)+'/100' if n else '')
+
+# def moneda(n):
 #    n = long(n)
 #    q, r = divmod(n, 1000000)
 #    if n == 1: return 'peso '
 #    if q > 0 and r == 0: return 'de pesos '
 #    else: return 'pesos '
 
-# Con la variente en comentarios sería: 
+# Con la variente en comentarios sería:
 # $ python conversor.py 12901.27
 # $ Son: doce mil novecientos un pesos con 27/100
 
+
 def to_word(n):
     try:
-       m = Decimal(n).quantize(Decimal('0.01'))
+        m = Decimal(n).quantize(Decimal('0.01'))
     except Exception:
-       return 'NUMERO INVALIDO'
+        return 'NUMERO INVALIDO'
 #    return 'Son: ' + ent2txt(m) + moneda(m) + dec2txt(m)
     return 'Son pesos: ' + ent2txt(m) + dec2txt(m)
 
-# Para probar: 
+
+# Para probar:
 # $ python conversor.py 12901.27
 # $ Son pesos: doce mil novecientos uno con 27/100
 if __name__ == '__main__':
-	print to_word(sys.argv[1])
+    print to_word(sys.argv[1])
