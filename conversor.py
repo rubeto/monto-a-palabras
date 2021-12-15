@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 ################################################################
 # Author: Rubén Fortunato
@@ -10,14 +10,14 @@
 ################################################################
 #
 # Para probar, ejemplo:
-# $ python conversor.py 12901.27
+# $ python3 conversor.py 12901.27
 # $ Son pesos: doce mil novecientos uno con 27/100
 #
 # La variante comentada genera:
-# $ python conversor.py 12901.27
+# $ python3 conversor.py 12901.27
 # $ Son: doce mil novecientos un pesos con 27/100
 #
-# Para usar como módulo python:
+# Para usar como módulo python3:
 # monto_en_letras =  to_word(monto_en_números)
 #
 ################################################################
@@ -88,7 +88,7 @@ centenas = (
 
 
 def traverse(n):
-    n = long(n)
+    n = int(n)
 
     if n <= 29:
         return unidades[n]
@@ -108,23 +108,23 @@ def traverse(n):
 
 
 def ent2txt(n):
-    #    return traverse(long(n))
-    return re.sub('(ú|u)n $', 'uno ', traverse(long(n)), re.UNICODE)
+    #    return traverse(int(n))
+    return re.sub('(ú|u)n $', 'uno ', traverse(int(n)), re.UNICODE)
 
 
 def dec2txt(n):
-    n = long((n-long(n))*100)
+    n = int((n-int(n))*100)
     return ('con '+str(n)+'/100' if n else '')
 
 # def moneda(n):
-#    n = long(n)
+#    n = int(n)
 #    q, r = divmod(n, 1000000)
 #    if n == 1: return 'peso '
 #    if q > 0 and r == 0: return 'de pesos '
 #    else: return 'pesos '
 
 # Con la variente en comentarios sería:
-# $ python conversor.py 12901.27
+# $ python3 conversor.py 12901.27
 # $ Son: doce mil novecientos un pesos con 27/100
 
 
@@ -138,7 +138,7 @@ def to_word(n):
 
 
 # Para probar:
-# $ python conversor.py 12901.27
+# $ python3 conversor.py 12901.27
 # $ Son pesos: doce mil novecientos uno con 27/100
 if __name__ == '__main__':
-    print to_word(sys.argv[1])
+    print(to_word(sys.argv[1]))

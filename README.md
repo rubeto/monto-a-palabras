@@ -1,1 +1,0 @@
-Acepta un monto en formato float, decimal, int, long o string con 0 a 2 decimales separados por punto y devuelve un string con ese monto escrito en palabras según las normas de escritura de números en español. 
