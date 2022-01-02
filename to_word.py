@@ -10,11 +10,11 @@
 ################################################################
 #
 # Para probar, ejemplo:
-# $ python3 conversor.py 12901.27
+# $ python3 to_word.py 12901.27
 # $ Son pesos: doce mil novecientos uno con 27/100
 #
 # La variante comentada genera:
-# $ python3 conversor.py 12901.27
+# $ python3 to_word.py 12901.27
 # $ Son: doce mil novecientos un pesos con 27/100
 #
 # Para usar como módulo python3:
@@ -124,21 +124,24 @@ def dec2txt(n):
 #    else: return 'pesos '
 
 # Con la variente en comentarios sería:
-# $ python3 conversor.py 12901.27
+# $ python3 to_word.py 12901.27
 # $ Son: doce mil novecientos un pesos con 27/100
 
+monedas = {"ARS": " pesos", "USD": ' dólares', 'EUR': ' euro'}
 
-def to_word(n):
+def to_word(n, moneda):
     try:
         m = Decimal(n).quantize(Decimal('0.01'))
     except Exception:
         return 'NUMERO INVALIDO'
-#    return 'Son: ' + ent2txt(m) + moneda(m) + dec2txt(m)
-    return 'Son pesos: ' + ent2txt(m) + dec2txt(m)
+
+    moneda = monedas.get(moneda, '')
+
+    return 'Son{}: {}{}'.format(moneda, ent2txt(m), dec2txt(m))
 
 
 # Para probar:
-# $ python3 conversor.py 12901.27
+# $ python3 to_word.py 12901.27
 # $ Son pesos: doce mil novecientos uno con 27/100
 if __name__ == '__main__':
-    print(to_word(sys.argv[1]))
+    print(to_word(sys.argv[1], 'ARS'))
